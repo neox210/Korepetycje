@@ -1,0 +1,26 @@
+﻿@model Korepetycje.Models.RegisterViewModel
+@{
+    ViewBag.Title = "RegisterRole";
+}
+
+<h2>RegisterRole</h2>
+
+@using (Html.BeginForm("RegisterRole", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new {@class = "text-danger"})
+
+    <div class="form-group">
+        @Html.Label("Select Role")
+        @Html.DropDownList("UserName")
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Select UserName")
+        @Html.DropDownList("Name")
+    </div>
+
+    <input type="submit" value="register" />
+
+}
+
