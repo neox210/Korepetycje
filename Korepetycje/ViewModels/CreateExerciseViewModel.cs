@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Korepetycje.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace Korepetycje.Models
+namespace Korepetycje.ViewModels
 {
-    public class Exercises
+    public class CreateExerciseViewModel
     {
         [Key]
         public int Id { get; set; }
         [Required]
-        public int SubjectId { get; set;}
+        public int SubjectId { get; set; }
         [Required]
         public int SectionId { get; set; }
         [Required]
@@ -19,8 +21,7 @@ namespace Korepetycje.Models
 
         public string FotoPath { get; set; }
 
-        // public HttpPostedFileBase Foto { get; set; }
-        public Subjects Subject { get; set; }
-        public Sections Section { get; set; }
+        public IEnumerable<Subjects> Subject { get; set; }
+        public IEnumerable<Sections> Section { get; set; }
     }
 }
