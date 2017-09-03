@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Korepetycje.Models
 {
@@ -7,20 +8,21 @@ namespace Korepetycje.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public int SubjectId { get; set;}
-        [Required]
         public int SectionId { get; set; }
         [Required]
+        public int SchoolListId { get; set; }
+        [Required]
+        public int SchoolClassListId { get; set; }
+        [Required]
         public string Topic { get; set; }
-        [Required]
-        public string Content { get; set; }
-        [Required]
-        public decimal Result { get; set; }
 
+        public string Content { get; set; }
+        
         public string FotoPath { get; set; }
 
-        // public HttpPostedFileBase Foto { get; set; }
-        public Subjects Subject { get; set; }
         public Sections Section { get; set; }
+        public SchoolClassList SchoolClassList { get; set; }
+        public SchoolList SchoolList { get; set; }
+        public ICollection<Homeworks> Homeworks { get; set; }
     }
 }

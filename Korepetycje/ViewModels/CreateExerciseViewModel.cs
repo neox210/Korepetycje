@@ -9,19 +9,20 @@ namespace Korepetycje.ViewModels
         [Key]
         public int Id { get; set; }
         [Required]
-        public int SubjectId { get; set; }
-        [Required]
         public int SectionId { get; set; }
+        [Required]
+        public int SchoolListId { get; set; }
+        [Required]
+        public int SchoolClassListId { get; set; }
         [Required]
         public string Topic { get; set; }
         [Required]
         public string Content { get; set; }
-        [Required]
-        public decimal Result { get; set; }
-
+ 
         public string FotoPath { get; set; }
 
-        public IEnumerable<Subjects> Subject { get; set; }
         public IEnumerable<Sections> Section { get; set; }
+        public IEnumerable<SchoolClassList> SchoolClassList { get; set; }
+        public IEnumerable<SchoolList> SchoolList { get; set; }
     }
 }

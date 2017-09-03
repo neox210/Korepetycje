@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Korepetycje.Models
 {
-    public class Subjects
+    public class SchoolClassList
     {
         [Key]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public int ClassNumber { get; set; }
 
-        public ICollection<Exercises> Excercise { get; set; }
+        public ICollection<Exercises> Exercise { get; set; }
     }
 }

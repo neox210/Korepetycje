@@ -377,11 +377,11 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ExerciseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AdminHomeWorkController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SectionController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -389,21 +389,56 @@
     <Compile Include="Migrations\201708271235059_InitialCreate.Designer.cs">
       <DependentUpon>201708271235059_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708281705293_exercises.cs" />
-    <Compile Include="Migrations\201708281705293_exercises.Designer.cs">
-      <DependentUpon>201708281705293_exercises.cs</DependentUpon>
+    <Compile Include="Migrations\201709011151070_ExercisesSubjectsSections.cs" />
+    <Compile Include="Migrations\201709011151070_ExercisesSubjectsSections.Designer.cs">
+      <DependentUpon>201709011151070_ExercisesSubjectsSections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709031115382_exerciseSchoolUpdatte.cs" />
+    <Compile Include="Migrations\201709031115382_exerciseSchoolUpdatte.Designer.cs">
+      <DependentUpon>201709031115382_exerciseSchoolUpdatte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709031207086_SchoolUpdate.cs" />
+    <Compile Include="Migrations\201709031207086_SchoolUpdate.Designer.cs">
+      <DependentUpon>201709031207086_SchoolUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709031337085_ResultsDelete.cs" />
+    <Compile Include="Migrations\201709031337085_ResultsDelete.Designer.cs">
+      <DependentUpon>201709031337085_ResultsDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709031358187_test.cs" />
+    <Compile Include="Migrations\201709031358187_test.Designer.cs">
+      <DependentUpon>201709031358187_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709031411226_upadteHomework.cs" />
+    <Compile Include="Migrations\201709031411226_upadteHomework.Designer.cs">
+      <DependentUpon>201709031411226_upadteHomework.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709031504191_FbLogin.cs" />
+    <Compile Include="Migrations\201709031504191_FbLogin.Designer.cs">
+      <DependentUpon>201709031504191_FbLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709031632366_fullNameUpdate.cs" />
+    <Compile Include="Migrations\201709031632366_fullNameUpdate.Designer.cs">
+      <DependentUpon>201709031632366_fullNameUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709032128455_ExerciseDeleteSubject.cs" />
+    <Compile Include="Migrations\201709032128455_ExerciseDeleteSubject.Designer.cs">
+      <DependentUpon>201709032128455_ExerciseDeleteSubject.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Exercises.cs" />
+    <Compile Include="Models\Homeworks.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SchoolClassList.cs" />
+    <Compile Include="Models\SchoolList.cs" />
     <Compile Include="Models\Sections.cs" />
-    <Compile Include="Models\Subjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateExerciseViewModel.cs" />
+    <Compile Include="ViewModels\CreateHomeworkViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -449,7 +484,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -483,16 +520,15 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Exercise\Create.cshtml" />
     <Content Include="Views\Exercise\Index.cshtml" />
-    <Content Include="Views\Subject\Create.cshtml" />
-    <Content Include="Views\Subject\Index.cshtml" />
     <Content Include="Views\Section\Index.cshtml" />
     <Content Include="Views\Section\Create.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\AdminHomeWork\Index.cshtml" />
+    <Content Include="Views\AdminHomeWork\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="HomeworkFotos\" />
-    <Folder Include="Views\bla\" />
     <Folder Include="Views\Student\" />
   </ItemGroup>
   <ItemGroup>
@@ -508,8 +544,32 @@
     <EmbeddedResource Include="Migrations\201708271235059_InitialCreate.resx">
       <DependentUpon>201708271235059_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708281705293_exercises.resx">
-      <DependentUpon>201708281705293_exercises.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709011151070_ExercisesSubjectsSections.resx">
+      <DependentUpon>201709011151070_ExercisesSubjectsSections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709031115382_exerciseSchoolUpdatte.resx">
+      <DependentUpon>201709031115382_exerciseSchoolUpdatte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709031207086_SchoolUpdate.resx">
+      <DependentUpon>201709031207086_SchoolUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709031337085_ResultsDelete.resx">
+      <DependentUpon>201709031337085_ResultsDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709031358187_test.resx">
+      <DependentUpon>201709031358187_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709031411226_upadteHomework.resx">
+      <DependentUpon>201709031411226_upadteHomework.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709031504191_FbLogin.resx">
+      <DependentUpon>201709031504191_FbLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709031632366_fullNameUpdate.resx">
+      <DependentUpon>201709031632366_fullNameUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709032128455_ExerciseDeleteSubject.resx">
+      <DependentUpon>201709032128455_ExerciseDeleteSubject.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

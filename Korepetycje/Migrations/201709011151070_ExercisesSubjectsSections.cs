@@ -3,7 +3,7 @@ namespace Korepetycje.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class exercises : DbMigration
+    public partial class ExercisesSubjectsSections : DbMigration
     {
         public override void Up()
         {
@@ -15,8 +15,8 @@ namespace Korepetycje.Migrations
                         SubjectId = c.Int(nullable: false),
                         SectionId = c.Int(nullable: false),
                         Topic = c.String(nullable: false),
-                        Content = c.String(nullable: false),
-                        Result = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Content = c.String(),
+                        NumberOfResults = c.Int(nullable: false),
                         FotoPath = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -24,6 +24,19 @@ namespace Korepetycje.Migrations
                 .ForeignKey("dbo.Subjects", t => t.SubjectId)
                 .Index(t => t.SubjectId)
                 .Index(t => t.SectionId);
+            
+            CreateTable(
+                "dbo.ExerciseResults",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ExerciseId = c.Int(nullable: false),
+                        ResultNumber = c.Int(nullable: false),
+                        Result = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Exercises", t => t.ExerciseId)
+                .Index(t => t.ExerciseId);
             
             CreateTable(
                 "dbo.Sections",
@@ -49,10 +62,13 @@ namespace Korepetycje.Migrations
         {
             DropForeignKey("dbo.Exercises", "SubjectId", "dbo.Subjects");
             DropForeignKey("dbo.Exercises", "SectionId", "dbo.Sections");
+            DropForeignKey("dbo.ExerciseResults", "ExerciseId", "dbo.Exercises");
+            DropIndex("dbo.ExerciseResults", new[] { "ExerciseId" });
             DropIndex("dbo.Exercises", new[] { "SectionId" });
             DropIndex("dbo.Exercises", new[] { "SubjectId" });
             DropTable("dbo.Subjects");
             DropTable("dbo.Sections");
+            DropTable("dbo.ExerciseResults");
             DropTable("dbo.Exercises");
         }
     }
