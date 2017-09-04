@@ -1,5 +1,6 @@
 ﻿using Korepetycje.Models;
 using Korepetycje.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -17,6 +18,9 @@ namespace Korepetycje.Controllers
         public ActionResult Index()
         {
             var ListOfHomeworks = context.Homeworks.ToList();
+            List<IndexAdminHomeworkViewModel> models = new List<IndexAdminHomeworkViewModel>();
+            var model = new IndexAdminHomeworkViewModel();
+         
             foreach (var item in ListOfHomeworks)
             {
                 item.Student = context.Users.SingleOrDefault(s => s.Id == item.StudentId);

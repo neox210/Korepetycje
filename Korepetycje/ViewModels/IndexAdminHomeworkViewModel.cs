@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Korepetycje.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace Korepetycje.Models
+namespace Korepetycje.ViewModels
 {
-    public class Homeworks
+    public class IndexAdminHomeworkViewModel
     {
         [Key]
         public int Id { get; set; }
