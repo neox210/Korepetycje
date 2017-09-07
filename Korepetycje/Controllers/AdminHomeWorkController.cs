@@ -25,9 +25,10 @@ namespace Korepetycje.Controllers
             {
                 item.Student = context.Users.SingleOrDefault(s => s.Id == item.StudentId);
                 item.Exercise = context.Excercises.SingleOrDefault(e => e.Id == item.ExerciseId);
+                item.Exercise.Section = context.Sections.SingleOrDefault(s => s.Id == item.Exercise.SectionId);
             }
 
-            return View("Index", "_AdminLayout", ListOfHomeworks);
+            return View("Index", ListOfHomeworks);
         }
 
         public ActionResult Create(string query = null)
@@ -44,7 +45,7 @@ namespace Korepetycje.Controllers
             {
                 item.SchoolClassList = context.SchoolClassList.SingleOrDefault(s => s.Id == item.SchoolClassListId);
                 item.SchoolList = context.SchoolList.SingleOrDefault(s => s.Id == item.SchoolListId);
-                item.Section = context.Sections.SingleOrDefault(s => s.Id == item.SectionId);
+                item.Section= context.Sections.SingleOrDefault(s => s.Id == item.SectionId);
             }
 
             if (!string.IsNullOrWhiteSpace(query))
@@ -55,7 +56,7 @@ namespace Korepetycje.Controllers
 
             }
 
-            return View("Create", "_AdminLayout", viewModel);
+            return View("Create", viewModel);
         }
 
         [HttpPost]

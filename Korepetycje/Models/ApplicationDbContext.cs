@@ -10,6 +10,7 @@ namespace Korepetycje.Models
         public DbSet<SchoolList> SchoolList { get; set; }
         public DbSet<SchoolClassList> SchoolClassList { get; set; }
         public DbSet<Homeworks> Homeworks { get; set; }
+        public DbSet<Notifications> Notifications { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,6 +37,11 @@ namespace Korepetycje.Models
             modelBuilder.Entity<Homeworks>()
                 .HasRequired(e => e.Exercise)
                 .WithMany(e => e.Homeworks)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(n => n.Notifications)
+                .WithRequired(u => u.Student)
                 .WillCascadeOnDelete(false);
                 
             base.OnModelCreating(modelBuilder);

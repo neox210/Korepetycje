@@ -17,12 +17,12 @@ namespace Korepetycje.Controllers
         public ActionResult Index()
         {
             var ListOfSectiones = context.Sections.ToList();
-            return View("Index", "_AdminLayout", ListOfSectiones);
+            return View("Index", ListOfSectiones);
         }
 
         public ActionResult Create()
         {
-            return View("Create", "_AdminLayout");
+            return View("Create");
         }
 
         [HttpPost]

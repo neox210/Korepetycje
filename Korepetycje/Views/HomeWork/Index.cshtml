@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Korepetycje.Models.Homeworks>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Nowe")
+        </th>
+        <th>
+            @Html.Label("Dział")
+        </th>
+        <th>
+            @Html.Label("Temat")
+        </th>
+        <th>
+            @Html.Label("Data zadania")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (!item.IsRead)
+                {
+                    <i class="glyphicon glyphicon-exclamation-sign"></i>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exercise.Section.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exercise.Topic)
+            </td>
+
+            <th>
+                @Html.DisplayFor(model => item.TaskDateTime)
+            </th>
+            <td>
+                @Html.ActionLink("Otwórz", "Open", new { id = item.ExerciseId }, htmlAttributes: new { @class = "btn btn-info" } ) 
+            </td>
+</tr>
+    }
+
+</table>

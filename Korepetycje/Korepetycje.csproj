@@ -386,14 +386,20 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\api\AdminHomeWorkController.cs" />
+    <Compile Include="Controllers\api\AdminNotificationsController.cs" />
+    <Compile Include="Controllers\api\SectionController.cs" />
+    <Compile Include="Controllers\api\StudentHomeWorkNotificationController.cs" />
     <Compile Include="Controllers\ExerciseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AdminHomeWorkController.cs" />
+    <Compile Include="Controllers\HomeWorkController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SectionController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Dto\AdminHomeWrokDto.cs" />
+    <Compile Include="Dto\AdminNotificationsDto.cs" />
+    <Compile Include="Dto\SectionApiDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -441,6 +447,14 @@
     <Compile Include="Migrations\201709041459411_homeworkDateTimeUpdate.Designer.cs">
       <DependentUpon>201709041459411_homeworkDateTimeUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709052116524_notificationsCreate.cs" />
+    <Compile Include="Migrations\201709052116524_notificationsCreate.Designer.cs">
+      <DependentUpon>201709052116524_notificationsCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709052338552_updateNotification.cs" />
+    <Compile Include="Migrations\201709052338552_updateNotification.Designer.cs">
+      <DependentUpon>201709052338552_updateNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -448,6 +462,7 @@
     <Compile Include="Models\Homeworks.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Notifications.cs" />
     <Compile Include="Models\SchoolClassList.cs" />
     <Compile Include="Models\SchoolList.cs" />
     <Compile Include="Models\Sections.cs" />
@@ -456,6 +471,7 @@
     <Compile Include="ViewModels\CreateExerciseViewModel.cs" />
     <Compile Include="ViewModels\CreateHomeworkViewModel.cs" />
     <Compile Include="ViewModels\IndexAdminHomeworkViewModel.cs" />
+    <Compile Include="ViewModels\IndexHomeWorkViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -478,6 +494,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -494,6 +511,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\underscore-min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -542,11 +560,13 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\AdminHomeWork\Index.cshtml" />
     <Content Include="Views\AdminHomeWork\Create.cshtml" />
+    <Content Include="Views\Shared\_StudentLayout.cshtml" />
+    <Content Include="Views\HomeWork\Index.cshtml" />
+    <Content Include="Views\HomeWork\Open.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="HomeworkFotos\" />
-    <Folder Include="Views\Student\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -590,6 +610,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709041459411_homeworkDateTimeUpdate.resx">
       <DependentUpon>201709041459411_homeworkDateTimeUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709052116524_notificationsCreate.resx">
+      <DependentUpon>201709052116524_notificationsCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709052338552_updateNotification.resx">
+      <DependentUpon>201709052338552_updateNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

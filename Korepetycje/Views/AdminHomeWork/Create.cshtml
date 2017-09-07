@@ -105,7 +105,12 @@
             $(".js-toggleHomewodk").click(function () {
                 var button = $(this);
                 var studentId = $("#js-StudentSelect").val();
-                $.post("/api/AdminHomeWork", { ExerciseId: button.attr("exercise-id"), StudentId: studentId }) 
+                var studentName = $("#js-StudentSelect :selected").text();
+                $.post("/api/AdminHomeWork", { ExerciseId: button.attr("exercise-id"), StudentId: studentId })
+                    .fail(function () {
+                        alert(studentName + " już ma to zadanie!");
+                    })
+                        
             });
         });
     </script>

@@ -1,0 +1,69 @@
+﻿@model Korepetycje.Models.Exercises
+
+@{
+    ViewBag.Title = "Open";
+}
+
+<h2>Open</h2>
+
+<div>
+    <h4>Exercises</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.Label("Dział")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Section.Name)
+        </dd>
+
+        <dt>
+            @Html.Label("Temat")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Topic)
+        </dd>
+
+        <dt>
+            @Html.Label("Tresc")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        @if (!string.IsNullOrWhiteSpace(Model.FotoPath))
+        {
+            <dt>
+                @Html.Label("Zdjęcie")
+            </dt>
+
+            <dd>
+                <img class="img-responsive" src="@Url.Content(@Model.FotoPath)" id="js-image" style="height:20%; width:20%;" />
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section scripts
+{
+<script>
+    $(document).ready(function () {
+        $("#js-image").click(function () {
+
+            if ($(this).css("width") > "20%") {
+                $(this).css({ "width": "20%", "height": "20%" });
+            }
+            else {
+                $(this).css({ "width": "100%", "height": "100%" });
+            }            
+        });
+    });
+</script>
+}

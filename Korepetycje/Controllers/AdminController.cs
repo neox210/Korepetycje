@@ -7,7 +7,7 @@ namespace Korepetycje.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View("Index", "_AdminLayout");
+            return View("Index");
         }
     }
 }

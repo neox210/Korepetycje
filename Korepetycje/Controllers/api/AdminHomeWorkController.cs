@@ -26,7 +26,7 @@ namespace Korepetycje.Controllers.Api
             {
                 StudentId = dto.StudentId,
                 ExerciseId = dto.ExerciseId,
-                TaskDateTime = DateTime.Now.ToString("H:m d MMMMM yyyy"),
+                TaskDateTime = DateTime.Now.ToString("HH:mm d MMMMM yyyy"),
                 IsRead = false
             };
             context.Homeworks.Add(homework);

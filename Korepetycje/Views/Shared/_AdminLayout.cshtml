@@ -53,3 +53,62 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script type="text/x-template" id="notification-template">
+    <ul>
+        <%
+            _.each(notifications, function(notification){
+        %>
+        <li> <strong><%= notification.FullName %></strong>  <%= notification.Content %> |<p><%= notification.NotificationDate %></p>  </li>
+        <%
+        })
+        %>
+    </ul>
+</script>
+
+<script>
+            $(document).ready(function () {
+                $.get("/api/AdminNotifications", function (notifications) {
+
+                    if (notifications.NewNotifications.length == 0)
+                    {
+                        $(".js-admin-notifications").popover({
+                            html: true,
+                            title: "Powiadomienia",
+                            content: function () {
+                                var compiled = _.template($("#notification-template").html());
+                                return compiled({ notifications: notifications.OldNotifications });
+                            },
+                            placement: "bottom"
+                        })
+                    }
+                    else
+                    {
+                        $(".js-notification-count")
+                            .text(notifications.NewNotifications.length)
+                            .removeClass("hide");
+
+                        $(".js-admin-notifications").popover({
+                            html: true,
+                            title: "Powiadomienia",
+                            content: function () {
+                                var compiled = _.template($("#notification-template").html());
+                                return compiled({ notifications: notifications.NewNotifications });
+                            },
+                            placement: "bottom"
+                        }).on("shown.bs.popover", function () {
+                            $.post("/api/AdminNotifications/ReadUpdate")
+                                .done(function () {
+                                    $(".js-notification-count")
+                                        .text("")
+                                        .addClass("hide");
+                                });
+                        });
+                    }
+                    
+                    
+
+                });
+            });
+</script>
+

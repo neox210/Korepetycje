@@ -50,5 +50,95 @@ textarea {
 #search-homework-users{
     width: 300px;
 }
+a > .badge {
+    position: absolute;
+    top: 8px;
+    right: -2px;
+}
+
+.navbar-inverse {
+    background-color: #ffd800;
+    border-color: #ffd800;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #000000;
+}
 
 
+
+    .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+        color: #ffffff;
+        background-color: #eec700;
+    }
+
+td > .ok-icon{
+    color: #4cff00;
+}
+
+td > .not-ok-icon {
+    color: #ff0000;
+}
+
+.margin-horizontal-2{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.margin-horizontal-5 {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.margin-horizontal-7 {
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.margin-horizontal-10 {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.margin-horizontal-15 {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+td > a> .action-delete{
+    color: #ff0000;
+}
+
+td > a > .action-edit{
+    color: #808080;
+}
+
+td > a > a.action-detaild{
+    color: #0026ff;
+}
+
+a> .add-item-icon{
+    font-size: 20px;
+    color: #4cff00;
+}
+
+.add-item-link {
+    font-size: 25px;
+
+    padding: 5px;
+    border-radius: 8px;
+    color: #000000;
+
+}
+
+    .add-item-link:hover, .add-item-link :focus {
+        color: #ffffff;
+        text-decoration: none;
+        background: #00d12b;
+    }
+
+
+
+a > .add-item-icon :hover{
+    color:#ffffff;
+}

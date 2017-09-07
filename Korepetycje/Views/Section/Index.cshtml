@@ -6,9 +6,31 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Dodaj <i class="glyphicon glyphicon-plus-sign add-item-icon"></i></button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Dodaj nowy dział</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Nazwa działu:</h5>
+                <input type="text" id="js-section-name" name="sectionName"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="js-add-section" data-dismiss="modal">Zapisz</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <table class="table">
     <tr>
         <th>
@@ -31,3 +53,27 @@
 }
 
 </table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#js-add-section").click(function () {
+                var section = $("#js-section-name").val();
+
+                $.post("/api/Section", { Name: section })
+                    .done(function () {
+                        location.reload()
+                    });
+                    //.fail(function () {
+                    //    alert(" już ma to zadanie!")
+                    
+                    //});
+
+            });
+        });
+    </script>
+
+
+}

@@ -27,7 +27,7 @@ namespace Korepetycje.Controllers
                 exercise.SchoolClassList = context.SchoolClassList.SingleOrDefault(s => s.Id == exercise.SchoolClassListId);
             }
 
-            return View("Index", "_AdminLayout", ListOfExercises);
+            return View("Index", ListOfExercises);
         }
 
         public ActionResult Create()
@@ -39,7 +39,7 @@ namespace Korepetycje.Controllers
                 SchoolClassList = context.SchoolClassList.ToList()
         
             };
-            return View("Create", "_AdminLayout", model);
+            return View("Create", model);
         }
 
         [ValidateAntiForgeryToken]
@@ -55,7 +55,7 @@ namespace Korepetycje.Controllers
                     SchoolClassList = context.SchoolClassList.ToList()
 
                 };
-                return View("Create", "_AdminLayout", model);
+                return View("Create", model);
             }
 
             if (Request.Files.Count > 0)
