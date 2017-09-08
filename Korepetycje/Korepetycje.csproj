@@ -399,7 +399,8 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Dto\AdminHomeWrokDto.cs" />
     <Compile Include="Dto\AdminNotificationsDto.cs" />
-    <Compile Include="Dto\SectionApiDto.cs" />
+    <Compile Include="Dto\SecionCreateApiDto.cs" />
+    <Compile Include="Dto\SectionEditApiDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -454,6 +455,10 @@
     <Compile Include="Migrations\201709052338552_updateNotification.cs" />
     <Compile Include="Migrations\201709052338552_updateNotification.Designer.cs">
       <DependentUpon>201709052338552_updateNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709080929419_AddIsDeletedProp.cs" />
+    <Compile Include="Migrations\201709080929419_AddIsDeletedProp.Designer.cs">
+      <DependentUpon>201709080929419_AddIsDeletedProp.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -566,6 +571,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\api\section\" />
     <Folder Include="HomeworkFotos\" />
   </ItemGroup>
   <ItemGroup>
@@ -616,6 +622,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709052338552_updateNotification.resx">
       <DependentUpon>201709052338552_updateNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709080929419_AddIsDeletedProp.resx">
+      <DependentUpon>201709080929419_AddIsDeletedProp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

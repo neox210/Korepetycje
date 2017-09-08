@@ -3,12 +3,13 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="mobile-heding">
 
-<h2>Index</h2>
+    <h2>Lista działów</h2>
 
-<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Dodaj <i class="glyphicon glyphicon-plus-sign add-item-icon"></i></button>
-
-<!-- Modal -->
+    <button type="button" class="btn btn-success btn-lg btn-create" data-toggle="modal" data-target="#myModal">Dodaj nowy <i class="glyphicon glyphicon-plus-sign add-item-icon"></i></button>
+</div>
+<!-- Modals -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -31,23 +32,47 @@
     </div>
 </div>
 
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><b id="modal-edit-name"></b></h4>
+            </div>
+            <div class="modal-body">
+                <h5>Edytując nazwę zmieniasz ją we wszystkich zadaniach!</h5>
+                <input type="text" id="js-section-edit-name" name="sectionName" placeholder="nowa nazwa działu"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="js-edit-section" data-edit-id="" data-dismiss="modal">Zapisz</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
+        <th scope="col">
+            @Html.Label("Nazwa działu")
         </th>
-        <th></th>
+        <th scope="col">
+            @Html.Label("Opcje")
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td data-label="Nazwa">
             @Html.DisplayFor(modelItem => item.Name)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        <td data-label="Opcje">
+            <a href="#" class="js-action-edit"  data-toggle="modal" data-target="#editModal" data-edit-id="@item.Id" data-edit-name="@item.Name"><i class="glyphicon glyphicon-cog margin-horizontal-7 action-edit"></i></a>
+
+            <a href="#" class="js-action-delete" data-delete-id="@item.Id" data-name = "@item.Name" ><i class="glyphicon glyphicon-trash margin-horizontal-7 action-delete "></i></a>
         </td>
     </tr>
 }
@@ -59,21 +84,89 @@
 {
     <script>
         $(document).ready(function () {
+
             $("#js-add-section").click(function () {
                 var section = $("#js-section-name").val();
-
+                
                 $.post("/api/Section", { Name: section })
                     .done(function () {
                         location.reload()
-                    });
-                    //.fail(function () {
-                    //    alert(" już ma to zadanie!")
+                    })
+                    .fail(function () {
+                        alert("Taka sekcja istnieje!")
                     
-                    //});
+                    });
+            });
+
+            $(".js-action-edit").click(function () {
+                var name = document.getElementById("modal-edit-name");
+                var newname = $(this).attr("data-edit-name");
+                var editId = $(this).attr("data-edit-id");
+                $(name).text(newname);
+                $("#js-edit-section").attr("data-edit-id", editId);
 
             });
+
+            $("#js-edit-section").click(function () {
+                var section = $("#js-section-edit-name").val();
+                var sectionId = $(this).attr("data-edit-id");
+                $.ajax({
+                    url: '/api/Section/', 
+                    method: 'PATCH',
+                    data: { Name: section, Id: sectionId }, 
+                    success: function () {
+                        location.reload()
+                    },
+                    fail: function () {
+                        alert("coś poszło nie tak")
+                    }
+                    
+                });
+
+            });
+
+
+            $(".js-action-delete").click(function (e) {
+                var link = $(this).attr("data-delete-id");
+                var name = $(this).attr("data-name");
+                var fade = $(e.target);
+
+                bootbox.dialog({
+                    message: "Czy na pewno usunąć <b>" + name + "</b>?" +
+                    "<p>Usuwając cały dział musisz zaaktualizować <b> wszystkie zadania </b> które go używają!</p>",
+                    title: "Potwierdź",
+                    buttons: {
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/Section/" + link,
+                                    method: "Delete"
+                                })
+                                    .done(function () {
+                                        fade.parents("tr").fadeOut(function () {
+                                            $(this).remove();
+                                        })
+                                    })
+                                    .fail(function () {
+                                        alert("Nie udało się usunąć!");
+                                    });
+                            }
+                        },
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        }
+                    }
+                });
+
+            })
+
+
         });
     </script>
-
-
 }

@@ -15,7 +15,14 @@ namespace Korepetycje.Models
         [Required]
         public bool IsRead { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public ApplicationUser Student { get; set; }
         public Exercises Exercise { get; set; }
+
+        private void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

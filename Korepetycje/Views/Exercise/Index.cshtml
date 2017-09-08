@@ -5,40 +5,53 @@
 }
 
 <h2>Index</h2>
+<a href="@Url.Action("Create")" class="btn btn-success btn-lg">
+    Dodaj <i class="glyphicon glyphicon-plus-sign add-item-icon"></i>
+</a>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
-        <th>
-            @Html.Label("Poziom")
+        <th scope="col">
+            @Html.Label("Szkoła")
         </th>
-        <th>
+        <th scope="col">
+            @Html.Label("Klasa")
+        </th>
+        <th scope="col">
             @Html.Label("Dział")
         </th>
-        <th>
+        <th scope="col">
             @Html.Label("Temat")
         </th>       
-        <th>
+        <th scope="col">
             @Html.Label("Zdjęcie")
         </th>
-        <th></th>
+        <th scope="col">
+            @Html.Label("Opcje")
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.SchoolList.Name) - @Html.DisplayFor(modelItem => item.SchoolClassList.ClassNumber)
+        <td data-label="Szkoła">
+            @Html.DisplayFor(modelItem => item.SchoolList.Name)
         </td>
-        <td>
+        <td data-label="Klasa">
+            @Html.DisplayFor(modelItem => item.SchoolClassList.ClassNumber)
+        </td>
+        <td data-label="Dział">
             @Html.DisplayFor(modelItem => item.Section.Name)
+            @if (item.Section.IsDeleted)
+            {
+                <i class="glyphicon glyphicon-exclamation-sign text-danger"></i>
+            }
         </td>
-        <td>
+        <td data-label="Temat">
             @Html.DisplayFor(modelItem => item.Topic)
         </td>
-        <td>
+        <td data-label="Zdjęcie">
             @if (item.FotoPath != null)
             {
                 <i class="glyphicon glyphicon-ok-circle ok-icon"></i>
@@ -49,7 +62,7 @@
             }
 
         </td>
-        <td>
+        <td data-label="Opcje">
             <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-cog margin-horizontal-7 action-edit"></i></a> 
             <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-file margin-horizontal-7 action-details"></i></a>
             <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-trash margin-horizontal-7 action-delete"></i></a>

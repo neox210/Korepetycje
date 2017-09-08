@@ -16,7 +16,77 @@
     white-space: normal;
 }
 
+
+
+
+
+
+/*for small devices overrides*/
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+    table th {
+        display: none !important;
+    }
+
+    table {
+        border: 0;
+        table-layout:fixed;
+    }
+
+        table caption {
+            font-size: 1.3em;
+        }
+
+        table thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position:absolute;
+            width: 1px;
+        }
+
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        table td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+
+            table td:before {
+
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            table td:last-child {
+                border-bottom: 0;
+            }
+    .mobile-heding{
+        text-align:center;
+    }
+}
+
+
+
+
+
 /* Set width on the form input elements since they're 100% wide by default */
+
+
+tr:nth-child(2n) {
+    background: #eee;
+}
+
 input,
 select,
 textarea {
@@ -107,29 +177,23 @@ td > .not-ok-icon {
 
 td > a> .action-delete{
     color: #ff0000;
+    font-size: 20px;
 }
 
-td > a > .action-edit{
+td > a > .action-edit {
     color: #808080;
+    font-size: 20px;
 }
 
-td > a > a.action-detaild{
+td > a > .action-details {
     color: #0026ff;
+    font-size: 20px;
 }
 
 a> .add-item-icon{
     font-size: 20px;
-    color: #4cff00;
 }
 
-.add-item-link {
-    font-size: 25px;
-
-    padding: 5px;
-    border-radius: 8px;
-    color: #000000;
-
-}
 
     .add-item-link:hover, .add-item-link :focus {
         color: #ffffff;
@@ -141,4 +205,13 @@ a> .add-item-icon{
 
 a > .add-item-icon :hover{
     color:#ffffff;
+}
+
+.text-danger{
+    color: #ff0000;
+}
+
+.btn-create{
+    margin-bottom: 30px;
+    margin-top: 15px;
 }

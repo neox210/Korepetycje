@@ -20,9 +20,16 @@ namespace Korepetycje.Models
         
         public string FotoPath { get; set; }
 
+        public bool IsDeleted { get; private set; }
+
         public Sections Section { get; set; }
         public SchoolClassList SchoolClassList { get; set; }
         public SchoolList SchoolList { get; set; }
         public ICollection<Homeworks> Homeworks { get; set; }
+
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

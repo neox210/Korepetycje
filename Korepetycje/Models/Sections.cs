@@ -10,6 +10,13 @@ namespace Korepetycje.Models
         [Required]
         public string Name { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public ICollection<Exercises> Exercise { get; set; }
+
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

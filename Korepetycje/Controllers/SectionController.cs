@@ -16,7 +16,7 @@ namespace Korepetycje.Controllers
 
         public ActionResult Index()
         {
-            var ListOfSectiones = context.Sections.ToList();
+            var ListOfSectiones = context.Sections.Where(s => s.IsDeleted == false).ToList();
             return View("Index", ListOfSectiones);
         }
 

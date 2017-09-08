@@ -1,56 +1,63 @@
 ﻿@model IEnumerable<Korepetycje.Models.Homeworks>
 
-@{
-    ViewBag.Title = "Index";
-}
+<h2>Lista zadań domowych</h2>
 
-<h2>Index</h2>
+<a href="@Url.Action("Create")" class="btn btn-success btn-lg">
+    Dodaj <i class="glyphicon glyphicon-plus-sign add-item-icon"></i>
+</a>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Student.FullName)
+        <th scope="col">
+            @Html.Label("Imię i nazwisko")
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Exercise.Section)
+        <th scope="col">
+            @Html.Label("Dział")
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Exercise.Topic)
+        <th scope="col">
+            @Html.Label("Temat")
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskDateTime)
+        <th scope="col">
+            @Html.Label("Godzina wysłania")
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsRead)
+        <th scope="col">
+            @Html.Label("Otworzone")
         </th>
-        <th></th>
+        <th scope="col">
+            @Html.Label("opcje")
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td data-label="Imię i nazwiko">
             @Html.DisplayFor(modelItem => item.Student.FullName)
         </td>
-        <td>
+        <td data-label="Dział">
             @Html.DisplayFor(modelItem => item.Exercise.Section.Name)
         </td>
-        <td>
+        <td data-label="Temat">
             @Html.DisplayFor(modelItem => item.Exercise.Topic)
         </td>
         
-        <th>
+        <td data-label="Godzina wysłania">
             @Html.DisplayFor(model => item.TaskDateTime)
-        </th>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsRead)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        <td data-label="Otworzone">
+            @if (item.IsRead)
+            {
+                <i class="glyphicon glyphicon-ok-circle ok-icon"></i>
+            }
+            else
+            {
+                <i class="glyphicon glyphicon-remove-circle not-ok-icon"></i>
+            }
+        </td>
+        <td data-label="Opcje">
+            <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-cog margin-horizontal-15 action-edit"></i></a>
+            <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-file margin-horizontal-15 action-details"></i></a>
+            <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-trash margin-horizontal-15 action-delete"></i></a>
         </td>
     </tr>
 }

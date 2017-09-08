@@ -42,19 +42,22 @@
                     <table class="table">
                         <tr>
                             <th>
-                                @Html.Display("Poziom")
+                                @Html.Label("Poziom")
                             </th>
                             <th>
-                                @Html.Display("Klasa")
+                                @Html.Label("Klasa")
                             </th>
                             <th>
-                                @Html.Display("Dział")
+                                @Html.Label("Dział")
                             </th>
                             <th>
-                                @Html.Display("Temat")
+                                @Html.Label("Temat")
                             </th>
                             <th>
-                                @Html.Display("Zdjęcie")
+                                @Html.Label("Zdjęcie")
+                            </th>
+                            <th>
+                                @Html.Label("Zadaj")
                             </th>
                         </tr>
 
@@ -62,30 +65,31 @@
                         {
                             <tr>
 
-                                <td>
+                                <td data-label="Szkoła">
                                     @Html.DisplayFor(modelItem => item.SchoolList.Name)
                                 </td>
-                                <td>
+                                <td data-label="Klasa">
                                     @Html.DisplayFor(modelItem => item.SchoolClassList.ClassNumber)
                                 </td>
-                                <td>
+                                <td data-label="Dział">
                                     @Html.DisplayFor(modelItem => item.Section.Name)
                                 </td>
-                                <td>
+                                <td data-label="Temat">
                                     @Html.DisplayFor(modelItem => item.Topic)
                                 </td>
-                                <td>
+                                <td data-label="Zdjęcie">
+
                                     @if (item.FotoPath != null)
                                     {
-                                        @Html.Display("Tak")
+                                        <i class="glyphicon glyphicon-ok-circle ok-icon"></i>
                                     }
                                     else
                                     {
-                                        @Html.Display("Nie")
+                                        <i class="glyphicon glyphicon-remove-circle not-ok-icon"></i>
                                     }
 
                                 </td>
-                                <td>
+                                <td data-label="Zadaj">
                                     <button exercise-id="@item.Id" class="btn btn-sm js-toggleHomewodk"><i class="glyphicon glyphicon-pencil"></i></button>
                                 </td>
                             </tr>
