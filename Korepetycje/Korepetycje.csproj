@@ -387,6 +387,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\api\AdminHomeWorkController.cs" />
     <Compile Include="Controllers\api\AdminNotificationsController.cs" />
+    <Compile Include="Controllers\api\ExerciseController.cs" />
     <Compile Include="Controllers\api\SectionController.cs" />
     <Compile Include="Controllers\api\StudentHomeWorkNotificationController.cs" />
     <Compile Include="Controllers\ExerciseController.cs" />
@@ -399,6 +400,7 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Dto\AdminHomeWrokDto.cs" />
     <Compile Include="Dto\AdminNotificationsDto.cs" />
+    <Compile Include="Dto\ExerciseEditSectionDto.cs" />
     <Compile Include="Dto\SecionCreateApiDto.cs" />
     <Compile Include="Dto\SectionEditApiDto.cs" />
     <Compile Include="Global.asax.cs">
@@ -460,10 +462,15 @@
     <Compile Include="Migrations\201709080929419_AddIsDeletedProp.Designer.cs">
       <DependentUpon>201709080929419_AddIsDeletedProp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709101817238_Add-HomeworkCHatMessages.cs" />
+    <Compile Include="Migrations\201709101817238_Add-HomeworkCHatMessages.Designer.cs">
+      <DependentUpon>201709101817238_Add-HomeworkCHatMessages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Exercises.cs" />
+    <Compile Include="Models\HomeworkChatMessages.cs" />
     <Compile Include="Models\Homeworks.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -473,10 +480,13 @@
     <Compile Include="Models\Sections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\EditExerciseViewModel.cs" />
     <Compile Include="ViewModels\CreateExerciseViewModel.cs" />
     <Compile Include="ViewModels\CreateHomeworkViewModel.cs" />
     <Compile Include="ViewModels\IndexAdminHomeworkViewModel.cs" />
+    <Compile Include="ViewModels\IndexExerciseViewModel.cs" />
     <Compile Include="ViewModels\IndexHomeWorkViewModel.cs" />
+    <Compile Include="ViewModels\OpenHomeWorkViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -568,11 +578,12 @@
     <Content Include="Views\Shared\_StudentLayout.cshtml" />
     <Content Include="Views\HomeWork\Index.cshtml" />
     <Content Include="Views\HomeWork\Open.cshtml" />
+    <Content Include="Views\AdminHomeWork\Open.cshtml" />
+    <Content Include="Views\Exercise\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\api\section\" />
-    <Folder Include="HomeworkFotos\" />
+    <Folder Include="HomeworkFotos\MessagesFotos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -625,6 +636,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709080929419_AddIsDeletedProp.resx">
       <DependentUpon>201709080929419_AddIsDeletedProp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709101817238_Add-HomeworkCHatMessages.resx">
+      <DependentUpon>201709101817238_Add-HomeworkCHatMessages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

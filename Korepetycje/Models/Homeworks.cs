@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Korepetycje.Models
 {
@@ -15,12 +16,13 @@ namespace Korepetycje.Models
         [Required]
         public bool IsRead { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; private set; }
 
         public ApplicationUser Student { get; set; }
         public Exercises Exercise { get; set; }
+        public ICollection<HomeworkChatMessages> HomeworkChatMessages { get; set; }
 
-        private void Delete()
+        public void Delete()
         {
             IsDeleted = true;
         }

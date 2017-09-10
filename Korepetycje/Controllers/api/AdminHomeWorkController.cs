@@ -34,5 +34,16 @@ namespace Korepetycje.Controllers.Api
 
             return Ok();
         }
+
+        [HttpDelete]
+
+        public IHttpActionResult Delete (int id)
+        {
+            var homework = context.Homeworks.SingleOrDefault(h => h.Id == id);
+            homework.Delete();
+            context.SaveChanges();
+
+            return Ok();
+        }
     }
 }

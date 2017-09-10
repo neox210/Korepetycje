@@ -1,0 +1,102 @@
+﻿@model Korepetycje.ViewModels.OpenHomeWorkViewModel
+
+<h2>Open</h2>
+
+
+    <h4>Zadanie domowe:</h4>
+    <div>
+    <h4>Exercises</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.Label("Dział")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exercise.Section.Name)
+        </dd>
+
+        <dt>
+            @Html.Label("Temat")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exercise.Topic)
+        </dd>
+
+        <dt>
+            @Html.Label("Tresc")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exercise.Content)
+        </dd>
+        @if (!string.IsNullOrWhiteSpace(Model.Exercise.FotoPath))
+        {
+            <dt>
+                @Html.Label("Zdjęcie")
+            </dt>
+
+            <dd>
+                <img class="img-responsive" src="@Url.Content(@Model.Exercise.FotoPath)" id="js-image" style="height:20%; width:20%;" />
+            </dd>
+        }
+    </dl>
+</div>
+
+<table class="table">
+
+    @if (Model.Messages.ToList().Count > 0)
+    {
+        foreach (var item in Model.Messages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayTextFor(Model => item.Content)
+                    <p>
+                        @if (!string.IsNullOrWhiteSpace(item.FotoPath))
+                        {
+                            <img class="img-responsive" src="@Url.Content(@item.FotoPath)" style="height:20%; width:20%;" />
+                        }
+                    </p>
+                </td>
+            </tr>
+        }
+    }
+
+    <tr>
+        <td>
+            @using (Html.BeginForm("AddMessage", "AdminHomeWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <div class="form-group">
+                    @Html.EditorFor(model => model.NewMessageConntent, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextBoxFor(model => model.NewMessageFotoPath, new { type = "file" })
+                    @Html.HiddenFor(model => model.HomeWorkId)
+
+                    <input type="submit" value="Wyślij" class="btn btn-subbmit" />
+            </div>
+            }
+        </td>
+    </tr>
+</table>
+
+
+
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+        $("#js-image").click(function () {
+
+            if ($(this).css("width") > "20%") {
+                $(this).css({ "width": "20%", "height": "20%" });
+            }
+            else {
+                $(this).css({ "width": "100%", "height": "100%" });
+            }
+        });
+    });
+    </script>
+}
+

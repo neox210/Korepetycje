@@ -1,8 +1,5 @@
-﻿@model IEnumerable<Korepetycje.Models.Exercises>
+﻿@model Korepetycje.ViewModels.IndexExerciseViewModel
 
-@{
-    ViewBag.Title = "Index";
-}
 
 <h2>Index</h2>
 <a href="@Url.Action("Create")" class="btn btn-success btn-lg">
@@ -32,7 +29,7 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Exercises) {
     <tr>
 
         <td data-label="Szkoła">
@@ -45,7 +42,7 @@
             @Html.DisplayFor(modelItem => item.Section.Name)
             @if (item.Section.IsDeleted)
             {
-                <i class="glyphicon glyphicon-exclamation-sign text-danger"></i>
+                <a href="#" class="js-action-edit-section" data-exerciseId="@item.Id" data-edit-name="@item.Topic" data-toggle="modal" data-target="#edit-section-modal" ><i class="glyphicon glyphicon-exclamation-sign text-danger"></i></a>
             }
         </td>
         <td data-label="Temat">
@@ -65,9 +62,109 @@
         <td data-label="Opcje">
             <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-cog margin-horizontal-7 action-edit"></i></a> 
             <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-file margin-horizontal-7 action-details"></i></a>
-            <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-trash margin-horizontal-7 action-delete"></i></a>
+            <a href="#" class="js-action-delete" data-delete-id="@item.Id" data-name="@item.Topic"><i class="glyphicon glyphicon-trash margin-horizontal-7 action-delete "></i></a>
         </td>
     </tr>
 }
 
 </table>
+
+<div class="modal fade" id="edit-section-modal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Zmień dział zadania <b id="modal-edit-name"></b></h4>
+            </div>
+            <div class="modal-body">
+                <h5>Wybierz dział:</h5>
+                @Html.DropDownList("SectionId", new SelectList(Model.Sections, "Id", "Name"), htmlAttributes: new { @class = "form-control", @id ="js-section-id"})
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="js-update-section" data-exercise-edit-id="" data-dismiss="modal">Zapisz</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $(".js-action-edit-section").click(function () {
+                var name = document.getElementById("modal-edit-name");
+                var newname = $(this).attr("data-edit-name");
+                var exerciseId = $(this).attr("data-exerciseId");
+                $(name).text(newname);
+                $("#js-update-section").attr("data-exercise-edit-id", exerciseId);
+
+            });
+
+            $("#js-update-section").click(function () {
+                var section = $("#js-section-id").val();
+                var exercise = $("#js-update-section").attr("data-exercise-edit-id");
+                $.ajax({
+                    url: '/api/Exercise/',
+                    method: 'PATCH',
+                    data: { ExerciseId: exercise, SectionId: section },
+                    success: function () {
+                        location.reload()
+                    },
+                    fail: function () {
+                        alert("coś poszło nie tak")
+                    }
+
+                });
+
+            });
+
+
+            $(".js-action-delete").click(function (e) {
+                var link = $(this).attr("data-delete-id");
+                var name = $(this).attr("data-name");
+                var fade = $(e.target);
+
+                bootbox.dialog({
+                    message: "Czy na pewno usunąć <b>" + name + "</b>?" +
+                    "<p>Jeśli to zadanie jest wykożystywane w którymś z zadań domowych będzie ono wymagać aktualizacji!</p>",
+                    title: "Potwierdź",
+                    buttons: {
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/Exercise/" + link,
+                                    method: "Delete"
+                                })
+                                    .done(function () {
+                                        fade.parents("tr").fadeOut(function () {
+                                            $(this).remove();
+                                        })
+                                    })
+                                    .fail(function () {
+                                        alert("Nie udało się usunąć!");
+                                    });
+                            }
+                        },
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        }
+                    }
+                });
+
+            });
+    });
+    </script>
+}

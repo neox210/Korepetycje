@@ -55,11 +55,59 @@
             }
         </td>
         <td data-label="Opcje">
-            <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-cog margin-horizontal-15 action-edit"></i></a>
-            <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-file margin-horizontal-15 action-details"></i></a>
-            <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-trash margin-horizontal-15 action-delete"></i></a>
+            <a href="@Url.Action("Open", new { id = item.Id })"><i class="glyphicon glyphicon-file margin-horizontal-15 action-details"></i></a>
+            <a href="#" class="js-action-delete" data-delete-id="@item.Id" data-exercise-name="@item.Exercise.Topic" data-student-name="@item.Student.FirstName"><i class="glyphicon glyphicon-trash margin-horizontal-7 action-delete "></i></a>
         </td>
     </tr>
 }
 
 </table>
+
+@section scripts{
+    
+<script>
+
+    $(".js-action-delete").click(function (e) {
+        var link = $(this).attr("data-delete-id");
+        var exerciseName = $(this).attr("data-exercise-name");
+        var studentName = $(this).attr("data-student-name");
+        var fade = $(e.target);
+
+        bootbox.dialog({
+            message: "Czy na pewno usunąć zadanie <b>" + exerciseName + "</b> <p> dla ucznia " + "<b>" + studentName + "</b>?</p>",
+            title: "Potwierdź",
+            buttons: {
+                yes: {
+                    label: 'Tak',
+                    className: 'btn-danger',
+                    callback: function () {
+                        $.ajax({
+                            url: "/api/AdminHomeWork/" + link,
+                            method: "Delete"
+                        })
+                            .done(function () {
+                                fade.parents("tr").fadeOut(function () {
+                                    $(this).remove();
+                                })
+                            })
+                            .fail(function () {
+                                alert("Nie udało się usunąć!");
+                            });
+                    }
+                },
+                no: {
+                    label: 'Nie',
+                    className: 'btn-default',
+                    callback: function () {
+                        bootbox.hideAll();
+                    }
+                }
+            }
+        });
+
+    });
+    </script>
+
+
+
+}

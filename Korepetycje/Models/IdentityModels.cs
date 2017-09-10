@@ -14,6 +14,7 @@ namespace Korepetycje.Models
         public string FullName { get; set; }
 
         public ICollection<Notifications> Notifications { get; set; }
+        public ICollection<HomeworkChatMessages> HomeworkChatMessages { get; set; }
 
 
         public ICollection<Homeworks> Homework { get; set; }

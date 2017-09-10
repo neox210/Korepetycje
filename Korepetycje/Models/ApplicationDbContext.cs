@@ -11,6 +11,7 @@ namespace Korepetycje.Models
         public DbSet<SchoolClassList> SchoolClassList { get; set; }
         public DbSet<Homeworks> Homeworks { get; set; }
         public DbSet<Notifications> Notifications { get; set; }
+        public DbSet<HomeworkChatMessages> HomeworkChatMessages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -42,6 +43,16 @@ namespace Korepetycje.Models
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(n => n.Notifications)
                 .WithRequired(u => u.Student)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(m => m.HomeworkChatMessages)
+                .WithRequired(m => m.Student)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Homeworks>()
+                .HasMany(m => m.HomeworkChatMessages)
+                .WithRequired(m => m.Homework)
                 .WillCascadeOnDelete(false);
                 
             base.OnModelCreating(modelBuilder);
