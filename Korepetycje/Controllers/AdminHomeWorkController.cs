@@ -74,12 +74,14 @@ namespace Korepetycje.Controllers
             var homework = context.Homeworks.SingleOrDefault(h => h.Id == id);
             var exercise = context.Excercises.SingleOrDefault(e => e.Id == homework.ExerciseId);
             var messages = context.HomeworkChatMessages.Where(m => m.HomeworkId == homework.Id).ToList();
+            var userId = User.Identity.GetUserId();
 
             var viewModel = new OpenHomeWorkViewModel()
             {
                 Exercise = exercise,
                 Messages = messages,
-                HomeWorkId = homework.Id
+                HomeWorkId = homework.Id,
+                LoggedUserId = userId
                 
             };
 
