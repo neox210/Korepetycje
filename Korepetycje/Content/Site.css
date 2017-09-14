@@ -429,3 +429,41 @@ a > .add-item-icon :hover{
     margin-bottom: 30px;
     margin-top: 15px;
 }
+
+td > .avatar {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    display: block;
+    z-index: 2;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    background-color: rgba(255,255,255,0.9);
+    display: inline-block;
+}
+
+td> .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    background-color: rgba(255,255,255,0.9);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+td > .icon-visible-true{
+    color: #4cff00;
+    font-size: 20px;
+}
+
+td > .icon-visible-false {
+    color: #ff0000;
+    font-size: 20px;
+}

@@ -73,8 +73,13 @@ namespace Korepetycje.Controllers
         {
             var homework = context.Homeworks.SingleOrDefault(h => h.Id == id);
             var exercise = context.Excercises.SingleOrDefault(e => e.Id == homework.ExerciseId);
-            var messages = context.HomeworkChatMessages.Where(m => m.HomeworkId == homework.Id).ToList();
+            var messages = context.HomeworkChatMessages.Where(m => m.HomeworkId == homework.Id).OrderBy(m => m.Date).ToList();
             var userId = User.Identity.GetUserId();
+
+            foreach (var message in messages)
+            {
+                message.Student = context.Users.SingleOrDefault(u => u.Id == message.StudentId);
+            }
 
             var viewModel = new OpenHomeWorkViewModel()
             {
@@ -84,6 +89,8 @@ namespace Korepetycje.Controllers
                 LoggedUserId = userId
                 
             };
+
+            
 
             return View("Open", viewModel);
         }
@@ -111,7 +118,8 @@ namespace Korepetycje.Controllers
                 HomeworkId = model.HomeWorkId,
                 StudentId = User.Identity.GetUserId(),
                 Content = model.NewMessageConntent,
-                FotoPath = model.NewMessageFotoPath
+                FotoPath = model.NewMessageFotoPath,
+                Date = DateTime.Now
             };
             context.HomeworkChatMessages.Add(message);
             context.SaveChanges();

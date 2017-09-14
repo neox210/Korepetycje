@@ -1,0 +1,198 @@
+﻿@model IEnumerable<Korepetycje.ViewModels.ManageStudentsViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th scope="col">
+            @Html.Label("Imię i Nazwisko")
+        </th>
+        <th scope="col">
+            @Html.Label("Autoryzacja")
+        </th>
+        <th scope="col">
+            @Html.Label("Widoczność")
+        </th>
+        <th scope="col">
+            @Html.Label("Ostatnio zalogowany")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td data-label="Imię i Nazwisko">
+                <div class="avatar"><img src="@Url.Content(item.Student.AvatarPath)" draggable="false" /></div>
+                <span >@item.Student.FullName</span>
+            </td>
+            <td data-label="Autoryzacja">
+                @if (!string.IsNullOrWhiteSpace(item.RoleName) && !(item.RoleName == "Administrator"))
+                {
+                    <button class="btn btn-info js-action-delete-student-role" data-username="@item.Student.Id" data-full-name="@item.Student.FullName">@item.RoleName</button>
+                }
+                else if (item.RoleName == "Administrator")
+                {
+                    <button class="btn btn-success">@item.RoleName</button>
+                }
+                else
+                {
+                    <button class="btn btn-warning js-action-add-student-role" data-username="@item.Student.Id" data-full-name="@item.Student.FullName" >Niezweryfikowany</button>
+                }
+            </td>
+            <td data-label="Widoczność">
+                @if (item.Student.Visible)
+                {
+                    <i class="glyphicon glyphicon-eye-open icon-visible-true js-action-visible-off" data-userid="@item.Student.Id"></i>
+                }
+                else
+                {
+                    <i class="glyphicon glyphicon-eye-close icon-visible-false js-action-visible-on" data-userid="@item.Student.Id" data-user-role="@item.RoleName"></i>
+                }
+            </td>
+            <td data-label="Ostatnio zalogowany">
+                @Html.DisplayFor(modelItem => item.Student.LastLoginDate)
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+
+@section scripts{
+    
+    <script>
+        $(document).ready(function () {
+
+            $(".js-action-visible-off").click(function () {
+                var studentid = $(this).attr("data-userid");
+
+                $.ajax({
+                    url: "/api/UserVisibility/" + studentid,
+                    method: "Delete"
+                })
+                    .done(function () {
+                        location.reload();
+                    })
+                    .fail(function () {
+                        alert("Nie udało się zmienić widoczności!");
+                    });
+            });
+
+
+            $(".js-action-visible-on").click(function () {
+                var studentid = $(this).attr("data-userid");
+                var role = $(this).attr("data-user-role");
+                if (role.length>0) {
+                    $.ajax({
+                        url: "/api/UserVisibility/" + studentid,
+                        method: "Post"
+                    })
+                        .done(function () {
+                            location.reload();
+                        })
+                        .fail(function () {
+                            alert("Nie udało się zmienić widoczności!");
+                        });
+                }
+                else {
+                    alert("Niezweryfikowany uczeń nie może być widoczny!");
+                }
+                
+            });
+
+            $(".js-action-delete-student-role").click(function () {
+                var studentFullName = $(this).attr("data-full-name");
+                var roleName = "Student";
+                var userId = $(this).attr("data-username")
+
+                bootbox.dialog({
+                    message: "Czy na pewno cofnąć uprawnienia <b> ucznia </b> dla <b>" + studentFullName + "</b>?" +
+                    "<p>Spowoduje to brak dostępu do kluczowych funkcjonalności serwisu</p>",
+                    title: "Potwierdź zmianę uprawnień",
+                    buttons: {
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/Role/",
+                                    data: { StudentId: userId, RoleName: roleName},
+                                    method: "Delete"
+                                })
+                                    .done(function () {
+                                        location.reload();
+                                    })
+                                    .fail(function () {
+                                        alert("Nie udało się zmienić uprawnień!");
+                                    });
+                            }
+                        },
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        }
+                    }
+                });
+
+            });
+
+
+            $(".js-action-add-student-role").click(function () {
+                var studentFullName = $(this).attr("data-full-name");
+                var roleName = "Student";
+                var userId = $(this).attr("data-username")
+
+                bootbox.dialog({
+                    message: "Czy na pewno przyznać uprawnienia <b> ucznia </b> dla <b>" + studentFullName + "</b>?" +
+                    "<p>Spowoduje to dostęp do serwisu i sfobodne kożystanie z zadań domowych!</p>",
+                    title: "Potwierdź dodanie uprawnień",
+                    buttons: {
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-success',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/Role/",
+                                    data: { StudentId: userId, RoleName: roleName },
+                                    method: "Post"
+                                })
+                                    .done(function () {
+                                        location.reload();
+                                    })
+                                    .fail(function () {
+                                        alert("Nie udało się dodać uprawnień!");
+                                    });
+                            }
+                        },
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        }
+                    }
+                });
+
+            });
+
+
+
+        });
+    </script>
+    
+    
+    
+    
+    
+}

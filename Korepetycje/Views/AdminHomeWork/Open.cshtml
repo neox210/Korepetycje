@@ -54,50 +54,46 @@
             if (item.StudentId == Model.LoggedUserId)
             {
                 <li class="self">
-                    <div class="avatar"><img src="http://i.imgur.com/HYcn9xO.png" draggable="false" /></div>
+                    <div class="avatar"><img src="@Url.Content(item.Student.AvatarPath)" draggable="false" /></div>
                     <div class="msg">
                         @if (!string.IsNullOrWhiteSpace(item.FotoPath))
                         {
                             <img src="@Url.Content(@item.FotoPath)" draggable="false" />
                         }
                         <p>@Html.DisplayTextFor(model => item.Content)</p>
-                        <time>20:18</time>
+                        <time>@Html.DisplayTextFor(model => item.Date)</time>
                     </div>
                 </li>
             }
             else
             {
                 <li class="other">
-                    <div class="avatar"><img src="http://i.imgur.com/DY6gND0.png" draggable="false" /></div>
+                    <div class="avatar"><img src="@Url.Content(item.Student.AvatarPath)" draggable="false" /></div>
                     <div class="msg">
                         @if (!string.IsNullOrWhiteSpace(item.FotoPath))
                         {
                             <img src="@Url.Content(@item.FotoPath)" draggable="false" />
                         }
                         <p>@Html.DisplayTextFor(model => item.Content)</p>
-                        <time>20:17</time>
+                        <time>@Html.DisplayTextFor(model => item.Date)</time>
                     </div>
                 </li>
             }
         }
     </ol>
 
-    using (Html.BeginForm("AddMessage", "AdminHomeWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div class="form-group">
-            @Html.EditorFor(model => model.NewMessageConntent, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.TextBoxFor(model => model.NewMessageFotoPath, new { type = "file" })
-            @Html.HiddenFor(model => model.HomeWorkId)
-
-            <input type="submit" value="Wyślij" class="btn btn-subbmit" />
-        </div>
-    }
 }
 
+@using (Html.BeginForm("AddMessage", "AdminHomeWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.EditorFor(model => model.NewMessageConntent, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.TextBoxFor(model => model.NewMessageFotoPath, new { type = "file" })
+        @Html.HiddenFor(model => model.HomeWorkId)
 
-@*<input class="textarea" type="text" placeholder="Type here!" /><div class="emojis"></div>*@
-
-
+        <input type="submit" value="Wyślij" class="btn btn-subbmit" />
+    </div>
+}
 
     @section scripts
 {

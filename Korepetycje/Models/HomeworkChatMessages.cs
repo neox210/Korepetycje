@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Korepetycje.Models
 {
@@ -14,6 +15,8 @@ namespace Korepetycje.Models
         public string Content { get; set; }
 
         public string FotoPath { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
 
         public ApplicationUser Student { get; set; }
         public Homeworks Homework { get; set; } 

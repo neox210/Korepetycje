@@ -28,6 +28,19 @@
             @Model.Logins.Count [
             @Html.ActionLink("Manage", "ManageLogins") ]
         </dd>
+
+        <dt>Avatar</dt>
+        <dd>
+            <img class="img-responsive" src="@Url.Content(@Model.AvatarPath)" style="height:20%; width:20%;" />
+            @using (Html.BeginForm("AddAvatar", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <div class="form-group">
+                @Html.TextBoxFor(model => model.AvatarPath, new { type = "file" })
+
+                <input type="submit" value="Wyślij" class="btn btn-subbmit" />
+            </div>
+            }
+        </dd>
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
              

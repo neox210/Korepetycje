@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Korepetycje.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Korepetycje.Models;
 
 namespace Korepetycje.Controllers
 {
@@ -15,9 +16,11 @@ namespace Korepetycje.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext context;
 
         public ManageController()
         {
+            context = new ApplicationDbContext();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -70,7 +73,8 @@ namespace Korepetycje.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                AvatarPath = context.Users.SingleOrDefault(u => u.Id == userId).AvatarPath
             };
             return View(model);
         }
@@ -333,6 +337,28 @@ namespace Korepetycje.Controllers
             base.Dispose(disposing);
         }
 
+        [HttpPost]
+        public ActionResult AddAvatar(IndexViewModel model)
+        {
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase Foto = Request.Files[0];
+
+                if (Foto != null && Foto.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(Foto.FileName);
+                    var fileExtension = Path.GetExtension(Foto.FileName);
+                    fileName = fileName + DateTime.Now.ToString("fff-dd-MM-yyyy") + fileExtension;
+                    model.AvatarPath = "~/Avatars/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Avatars"), fileName);
+                    Foto.SaveAs(fileName);
+                }
+                var userId = User.Identity.GetUserId();
+                context.Users.SingleOrDefault(u => u.Id == userId).AvatarPath = model.AvatarPath;
+                context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
 #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

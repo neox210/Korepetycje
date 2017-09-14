@@ -388,19 +388,23 @@
     <Compile Include="Controllers\api\AdminHomeWorkController.cs" />
     <Compile Include="Controllers\api\AdminNotificationsController.cs" />
     <Compile Include="Controllers\api\ExerciseController.cs" />
+    <Compile Include="Controllers\api\RoleController.cs" />
     <Compile Include="Controllers\api\SectionController.cs" />
     <Compile Include="Controllers\api\StudentHomeWorkNotificationController.cs" />
+    <Compile Include="Controllers\api\UserVisibilityController.cs" />
     <Compile Include="Controllers\ExerciseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AdminHomeWorkController.cs" />
     <Compile Include="Controllers\HomeWorkController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageStudentsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SectionController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Dto\AdminHomeWrokDto.cs" />
     <Compile Include="Dto\AdminNotificationsDto.cs" />
     <Compile Include="Dto\ExerciseEditSectionDto.cs" />
+    <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Dto\SecionCreateApiDto.cs" />
     <Compile Include="Dto\SectionEditApiDto.cs" />
     <Compile Include="Global.asax.cs">
@@ -466,6 +470,18 @@
     <Compile Include="Migrations\201709101817238_Add-HomeworkCHatMessages.Designer.cs">
       <DependentUpon>201709101817238_Add-HomeworkCHatMessages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709121031251_UserAvatarAndVisibleOptions.cs" />
+    <Compile Include="Migrations\201709121031251_UserAvatarAndVisibleOptions.Designer.cs">
+      <DependentUpon>201709121031251_UserAvatarAndVisibleOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709121123184_HomeWorkCHatMessagesDate.cs" />
+    <Compile Include="Migrations\201709121123184_HomeWorkCHatMessagesDate.Designer.cs">
+      <DependentUpon>201709121123184_HomeWorkCHatMessagesDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709130729130_UserLastLogin.cs" />
+    <Compile Include="Migrations\201709130729130_UserLastLogin.Designer.cs">
+      <DependentUpon>201709130729130_UserLastLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -486,6 +502,7 @@
     <Compile Include="ViewModels\IndexAdminHomeworkViewModel.cs" />
     <Compile Include="ViewModels\IndexExerciseViewModel.cs" />
     <Compile Include="ViewModels\IndexHomeWorkViewModel.cs" />
+    <Compile Include="ViewModels\ManageStudentsViewModel.cs" />
     <Compile Include="ViewModels\OpenHomeWorkViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -580,9 +597,12 @@
     <Content Include="Views\HomeWork\Open.cshtml" />
     <Content Include="Views\AdminHomeWork\Open.cshtml" />
     <Content Include="Views\Exercise\Edit.cshtml" />
+    <Content Include="Views\ManageStudents\Index.cshtml" />
+    <Content Include="Views\ManageStudents\Unauthorized.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Avatars\" />
     <Folder Include="HomeworkFotos\MessagesFotos\" />
   </ItemGroup>
   <ItemGroup>
@@ -639,6 +659,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709101817238_Add-HomeworkCHatMessages.resx">
       <DependentUpon>201709101817238_Add-HomeworkCHatMessages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709121031251_UserAvatarAndVisibleOptions.resx">
+      <DependentUpon>201709121031251_UserAvatarAndVisibleOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709121123184_HomeWorkCHatMessagesDate.resx">
+      <DependentUpon>201709121123184_HomeWorkCHatMessagesDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709130729130_UserLastLogin.resx">
+      <DependentUpon>201709130729130_UserLastLogin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,6 +13,9 @@ namespace Korepetycje.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get; set; }
+        public string AvatarPath { get; set; }
+        public bool Visible { get; set; }
+        public DateTime LastLoginDate { get; set; }
 
         public ICollection<Notifications> Notifications { get; set; }
         public ICollection<HomeworkChatMessages> HomeworkChatMessages { get; set; }

@@ -35,6 +35,17 @@
                             <li>@Html.ActionLink("Lista zadań domowych", "Index", "AdminHomeWork")</li>
                         </ul>
                     </li>
+                    
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Moi uczniowie<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Zweryfikowani", "Index", "ManageStudents")</li>
+                            <li>@Html.ActionLink("Nowi/niezweryfikowani", "Index", "ManageStudents")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Zablokowani/niewidoczni", "Index", "ManageStudents")</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

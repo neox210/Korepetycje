@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -156,7 +157,9 @@ namespace Korepetycje.Controllers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    FullName = model.FirstName + " " + model.LastName
+                    FullName = model.FirstName + " " + model.LastName,
+                    AvatarPath = "~/Avatars/Default.png",
+                    LastLoginDate = DateTime.Now
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -404,7 +407,8 @@ namespace Korepetycje.Controllers
                         Email = model.Email,
                         FirstName = model.FirstName,
                         LastName = model.LastName,
-                        FullName = model.FirstName + " " + model.LastName
+                        FullName = model.FirstName + " " + model.LastName,
+                        AvatarPath = "~/Avatars/Default"
                     };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
