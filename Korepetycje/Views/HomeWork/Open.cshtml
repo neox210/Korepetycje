@@ -1,4 +1,4 @@
-﻿@model Korepetycje.Models.Exercises
+﻿@model Korepetycje.ViewModels.OpenHomeWorkViewModel
 
 @{
     ViewBag.Title = "Open";
@@ -16,7 +16,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Section.Name)
+            @Html.DisplayTextFor(model => model.Exercise.Section.Name)
         </dd>
 
         <dt>
@@ -24,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Topic)
+            @Html.DisplayFor(model => model.Exercise.Topic)
         </dd>
 
         <dt>
@@ -32,24 +32,69 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Content)
+            @Html.DisplayFor(model => model.Exercise.Content)
         </dd>
-        @if (!string.IsNullOrWhiteSpace(Model.FotoPath))
+        @if (!string.IsNullOrWhiteSpace(Model.Exercise.FotoPath))
         {
             <dt>
                 @Html.Label("Zdjęcie")
             </dt>
 
             <dd>
-                <img class="img-responsive" src="@Url.Content(@Model.FotoPath)" id="js-image" style="height:20%; width:20%;" />
+                <img class="img-responsive" src="@Url.Content(@Model.Exercise.FotoPath)" id="js-image" style="height:20%; width:20%;" />
             </dd>
         }
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@if (Model.Messages.ToList().Count > 0)
+{
+    <ol class="chat">
+        @foreach (var item in Model.Messages)
+        {
+            if (item.StudentId == Model.LoggedUserId)
+            {
+                <li class="self">
+                    <div class="avatar"><img src="@Url.Content(item.Student.AvatarPath)" draggable="false" /></div>
+                    <div class="msg">
+                        @if (!string.IsNullOrWhiteSpace(item.FotoPath))
+                        {
+                            <img src="@Url.Content(@item.FotoPath)" draggable="false" />
+                        }
+                        <p>@Html.DisplayTextFor(model => item.Content)</p>
+                        <time>@Html.DisplayTextFor(model => item.Date)</time>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li class="other">
+                    <div class="avatar"><img src="@Url.Content(item.Student.AvatarPath)" draggable="false" /></div>
+                    <div class="msg">
+                        @if (!string.IsNullOrWhiteSpace(item.FotoPath))
+                        {
+                            <img src="@Url.Content(@item.FotoPath)" draggable="false" />
+                        }
+                        <p>@Html.DisplayTextFor(model => item.Content)</p>
+                        <time>@Html.DisplayTextFor(model => item.Date)</time>
+                    </div>
+                </li>
+            }
+        }
+    </ol>
+
+}
+
+@using (Html.BeginForm("AddMessage", "AdminHomeWork", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.EditorFor(model => model.NewMessageConntent, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.TextBoxFor(model => model.NewMessageFotoPath, new { type = "file" })
+        @Html.HiddenFor(model => model.HomeWorkId)
+
+        <input type="submit" value="Wyślij" class="btn btn-subbmit" />
+    </div>
+}
 
 @section scripts
 {

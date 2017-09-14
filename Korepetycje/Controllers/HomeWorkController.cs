@@ -32,27 +32,51 @@ namespace Korepetycje.Controllers
 
         public ActionResult Open(int id)
         {
-
-            Exercises exercise = context.Excercises.SingleOrDefault(e => e.Id == id);
-            exercise.Section = context.Sections.SingleOrDefault(s => s.Id == exercise.SectionId);
-
             var userid = User.Identity.GetUserId();
-            var homework = context.Homeworks.SingleOrDefault(h => h.StudentId == userid && h.ExerciseId == id);
-            homework.IsRead = true;
-
-            var notification = new Notifications()
+            var homeworkUserId = context.Homeworks.SingleOrDefault(h => h.Id == id).StudentId;
+            if (userid != homeworkUserId)
             {
-                StudentId = userid,
-                FullName = context.Users.SingleOrDefault( s=> s.Id == userid).FullName,
-                Content = "przeczytał(a) zadanie domowe " + exercise.Topic,
-                IsRead = false,
-                NotificationDate = DateTime.Now.ToString("HH:mm d MMMMM yyyy")
+                return RedirectToAction("Index");
+            }
+
+            var homework = context.Homeworks.SingleOrDefault(h => h.Id == id);
+            var exercise = context.Excercises.SingleOrDefault(e => e.Id == homework.ExerciseId);
+            exercise.Section = context.Sections.SingleOrDefault(s => s.Id == exercise.SectionId);
+            var messages = context.HomeworkChatMessages.Where(m => m.HomeworkId == homework.Id).OrderBy(m => m.Date).ToList();
+            
+
+            foreach (var message in messages)
+            {
+                message.Student = context.Users.SingleOrDefault(u => u.Id == message.StudentId);
+            }
+
+            var viewModel = new OpenHomeWorkViewModel()
+            {
+                Exercise = exercise,
+                Messages = messages,
+                HomeWorkId = homework.Id,
+                LoggedUserId = userid
 
             };
 
-            context.Notifications.Add(notification);
-            context.SaveChanges();
-            return View("Open", exercise);
+            if (!homework.IsRead)
+            {
+                homework.IsRead = true;
+
+                var notification = new Notifications()
+                {
+                    StudentId = userid,
+                    FullName = context.Users.SingleOrDefault(s => s.Id == userid).FullName,
+                    Content = "przeczytał(a) zadanie domowe " + exercise.Topic,
+                    IsRead = false,
+                    NotificationDate = DateTime.Now.ToString("HH:mm d MMMMM yyyy")
+
+                };
+                context.Notifications.Add(notification);
+                context.SaveChanges();
+            }
+            
+            return View("Open", viewModel);
         }
 
         [HttpPost]
