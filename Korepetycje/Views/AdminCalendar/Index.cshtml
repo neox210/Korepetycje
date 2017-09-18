@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div id='calendar'></div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            // page is now ready, initialize the calendar...
+
+            $('#calendar').fullCalendar({
+                header: {
+                    center: 'agendaDay,agendaWeek,month',
+                },
+            })
+
+        });
+    </script>
+    
+    
+    
+    
+    }
+

@@ -9,7 +9,9 @@ namespace Korepetycje
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/underscore-min.js"));
+                        "~/Scripts/underscore-min.js",
+                        "~/Scripts/moment.min.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -22,12 +24,15 @@ namespace Korepetycje
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/bootbox.min.js"
+                      "~/Scripts/bootbox.min.js",
+                      "~/Scripts/fullcalendar.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/fullcalendar.css"
+                      ));
         }
     }
 }

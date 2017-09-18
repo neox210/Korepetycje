@@ -384,6 +384,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminCalendarController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\api\AdminHomeWorkController.cs" />
     <Compile Include="Controllers\api\AdminNotificationsController.cs" />
@@ -510,6 +511,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fullcalendar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -529,6 +531,7 @@
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -539,6 +542,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -599,6 +603,7 @@
     <Content Include="Views\Exercise\Edit.cshtml" />
     <Content Include="Views\ManageStudents\Index.cshtml" />
     <Content Include="Views\ManageStudents\Unauthorized.cshtml" />
+    <Content Include="Views\AdminCalendar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
