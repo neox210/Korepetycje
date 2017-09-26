@@ -12,6 +12,7 @@ namespace Korepetycje.Models
         public DbSet<Homeworks> Homeworks { get; set; }
         public DbSet<Notifications> Notifications { get; set; }
         public DbSet<HomeworkChatMessages> HomeworkChatMessages { get; set; }
+        public DbSet<CallendarEvents> CallendarEvents { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

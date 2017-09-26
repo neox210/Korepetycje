@@ -386,6 +386,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminCalendarController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\api\AdminEventsController.cs" />
     <Compile Include="Controllers\api\AdminHomeWorkController.cs" />
     <Compile Include="Controllers\api\AdminNotificationsController.cs" />
     <Compile Include="Controllers\api\ExerciseController.cs" />
@@ -483,9 +484,14 @@
     <Compile Include="Migrations\201709130729130_UserLastLogin.Designer.cs">
       <DependentUpon>201709130729130_UserLastLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709261212508_CallendarEventsInitial.cs" />
+    <Compile Include="Migrations\201709261212508_CallendarEventsInitial.Designer.cs">
+      <DependentUpon>201709261212508_CallendarEventsInitial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\CallendarEvents.cs" />
     <Compile Include="Models\Exercises.cs" />
     <Compile Include="Models\HomeworkChatMessages.cs" />
     <Compile Include="Models\Homeworks.cs" />
@@ -543,6 +549,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\fullCallendarLocalePl.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -673,6 +680,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709130729130_UserLastLogin.resx">
       <DependentUpon>201709130729130_UserLastLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709261212508_CallendarEventsInitial.resx">
+      <DependentUpon>201709261212508_CallendarEventsInitial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
