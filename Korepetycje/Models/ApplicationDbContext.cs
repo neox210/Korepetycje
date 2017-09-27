@@ -55,6 +55,11 @@ namespace Korepetycje.Models
                 .HasMany(m => m.HomeworkChatMessages)
                 .WithRequired(m => m.Homework)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(e => e.Events)
+                .WithRequired(e => e.Student)
+                .WillCascadeOnDelete(false);
                 
             base.OnModelCreating(modelBuilder);
         }

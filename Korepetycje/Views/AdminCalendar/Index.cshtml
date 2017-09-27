@@ -1,7 +1,6 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
+﻿@model IEnumerable<Korepetycje.Models.ApplicationUser>
+
+
 
 <h2>Index</h2>
 
@@ -40,7 +39,8 @@
                     <input type="hidden" id="hdEventID" value="0" />
                     <div class="form-group">
                         <label>Subject</label>
-                        <input type="text" id="txtSubject" class="form-control" />
+                        @Html.DropDownList("StudentId", new SelectList(Model, "Id", "FullName"), htmlAttributes: new { @class = "form-control", @id = "js-StudentSelect" })
+                        <input type="hidden" id="txtSubject" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label>Start</label>
@@ -90,10 +90,13 @@
 
 <div id='calendar'></div>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
 @section scripts{
 
 <script src='~/Scripts/fullCallendarLocalePl.js'></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
     <script>
         $(document).ready(function () {
 
@@ -101,6 +104,7 @@
 
 
             function FetchEventAndRenderCalendar() {
+
                 var events = [];
 
                 $.ajax({
@@ -110,6 +114,7 @@
                         $.each(data, function (i, v) {
                             events.push({
                                 id: v.Id,
+                                studentId: v.StudentId,
                                 title: v.Subject,
                                 description: v.Description,
                                 start: moment(v.Start),
@@ -126,13 +131,10 @@
                     }
                 })
 
-
-
-                // page is now ready, initialize the calendar...
-
                 function GenerateCalender(events) {
 
-                    $('#calender').fullCalendar('destroy');
+                    $('#calendar').fullCalendar('destroy');
+                    //$('#calendar').fullCalendar('render');
                     $('#calendar').fullCalendar({
                         locale: 'pl',
                         header: {
@@ -163,6 +165,7 @@
                         eventDrop: function (event) {
                             var data = {
                                 Id: event.id,
+                                StudentId: event.studentId,
                                 Subject: event.title,
                                 Start: event.start.format('YYYY-MM-DD HH:mm'),
                                 End: event.end != null ? event.end.format('YYYY-MM-DD HH:mm') : null,
@@ -176,6 +179,7 @@
                         eventResize: function (event) {
                             var data = {
                                 Id: event.id,
+                                StudentId: event.studentId,
                                 Subject: event.title,
                                 Start: event.start.format('YYYY-MM-DD HH:mm'),
                                 End: event.end != null ? event.end.format('YYYY-MM-DD HH:mm') : null,
@@ -191,9 +195,9 @@
                             selectedEvent = calEvent;
                             $('#myModal #eventTitle').text(calEvent.title);
                             var $description = $('<div/>');
-                            $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm")));
+                            $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("YYYY-MM-DD HH:mm")));
                             if (calEvent.end != null) {
-                                $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm")));
+                                $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("YYYY-MM-DD HH:mm")));
                             }
                             $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
                             $('#myModal #pDetails').empty().html($description);
@@ -207,12 +211,12 @@
 
             function openAddEditForm() {
                 if (selectedEvent != null) {
-                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#hdEventID').val(selectedEvent.id);
                     $('#txtSubject').val(selectedEvent.title);
-                    $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
+                    $('#txtStart').val(selectedEvent.start.format('YYYY-MM-DD HH:mm'));
                     $('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
                     $('#chkIsFullDay').change();
-                    $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('DD/MM/YYYY HH:mm A') : '');
+                    $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('YYYY-MM-DD HH:mm') : '');
                     $('#txtDescription').val(selectedEvent.description);
                     $('#ddThemeColor').val(selectedEvent.color);
                 }
@@ -225,17 +229,78 @@
                 openAddEditForm();
             })
 
+            $('#btnDelete').click(function () {
+                if (selectedEvent != null && confirm('Na pewno usunąć to wydarzenie?')) {
+                    $.ajax({
+                        type: "Delete",
+                        url: '/api/AdminEvents',
+                        data: { 'Id': selectedEvent.id },
+                        success: function (data) {
+                                FetchEventAndRenderCalendar();
+                                $('#myModal').modal('hide');
+                        },
+                        error: function () {
+                            alert('coś poszło nie tak przy usówaniu wydarzenia!');
+                        }
+                    })
+                }
+            })
+
+            $('#dtp1,#dtp2').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm'
+            });
+
+            $('#chkIsFullDay').change(function () {
+                if ($(this).is(':checked')) {
+                    $('#divEndDate').hide();
+                }
+                else {
+                    $('#divEndDate').show();
+                }
+            });
+
+            $('#btnSave').click(function () {
+                //Validation/
+                
+                if ($('#txtStart').val().trim() == "") {
+                    alert('Start date required');
+                    return;
+                }
+                if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
+                    alert('End date required');
+                    return;
+                }
+                else {
+                    var startDate = moment($('#txtStart').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    if (startDate > endDate) {
+                        alert('Invalid end date');
+                        return;
+                    }
+                }
+                
+                var data = {
+                    Id: $('#hdEventID').val(),
+                    StudentId: $("#js-StudentSelect").val(),
+                    Subject: $("#js-StudentSelect :selected").text(),
+                    Start: $('#txtStart').val().trim(),
+                    End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
+                    Description: $('#txtDescription').val(),
+                    ThemeColor: $('#ddThemeColor').val(),
+                    IsFullDay: $('#chkIsFullDay').is(':checked')
+                }
+                SaveEvent(data); 
+            })
+
             function SaveEvent(data) {
                 $.ajax({
                     type: "POST",
                     url: '/api/AdminEvents',
                     data: data,
-                    success: function (data) {
-                        if (data.status) {
+                    success: function () {
                             //Refresh the calender
                             FetchEventAndRenderCalendar();
                             $('#myModalSave').modal('hide');
-                        }
                     },
                     error: function () {
                         alert('Coś poszło nie tak przy zapisywaniu zdarzenia');

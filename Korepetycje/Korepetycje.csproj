@@ -488,6 +488,10 @@
     <Compile Include="Migrations\201709261212508_CallendarEventsInitial.Designer.cs">
       <DependentUpon>201709261212508_CallendarEventsInitial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709262102369_callendarEventsWithStudents.cs" />
+    <Compile Include="Migrations\201709262102369_callendarEventsWithStudents.Designer.cs">
+      <DependentUpon>201709262102369_callendarEventsWithStudents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -683,6 +687,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709261212508_CallendarEventsInitial.resx">
       <DependentUpon>201709261212508_CallendarEventsInitial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709262102369_callendarEventsWithStudents.resx">
+      <DependentUpon>201709262102369_callendarEventsWithStudents.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

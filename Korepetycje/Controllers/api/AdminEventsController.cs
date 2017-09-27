@@ -45,5 +45,15 @@ namespace Korepetycje.Controllers.api
 
             return Ok();
         }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteEvent(CallendarEvents e)
+        {
+            var callendarEvent = context.CallendarEvents.SingleOrDefault(ce => ce.Id == e.Id);
+            context.CallendarEvents.Remove(callendarEvent);
+            context.SaveChanges();
+
+            return Ok();
+        }
     }
 }

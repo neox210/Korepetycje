@@ -15,5 +15,9 @@ namespace Korepetycje.Models
         public DateTime? End { get; set; }
         public string ThemeColor { get; set; }
         public bool IsFullDay { get; set; }
+        [Required]
+        public string StudentId { get; set; }
+
+        public ApplicationUser Student { get; set; }
     }
 }

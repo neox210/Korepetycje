@@ -19,6 +19,7 @@ namespace Korepetycje.Models
 
         public ICollection<Notifications> Notifications { get; set; }
         public ICollection<HomeworkChatMessages> HomeworkChatMessages { get; set; }
+        public ICollection<CallendarEvents> Events { get; set; }
 
 
         public ICollection<Homeworks> Homework { get; set; }
