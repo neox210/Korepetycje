@@ -88,7 +88,7 @@
             $("#js-add-section").click(function () {
                 var section = $("#js-section-name").val();
                 
-                $.post("/api/Section", { Name: section })
+                $.post("/api/Section/", { Name: section })
                     .done(function () {
                         location.reload()
                     })

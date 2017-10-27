@@ -3,29 +3,74 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>MATH-EDU</h1>
+    <p class="lead"><b>Aplikacja do zarządzania korepetycjami. Aktualnie w budowie.</p>
+    <p>update 27.09.2017: wgrywanie bazy danych się komplikuje, jutro powinno zacząć wszystko niżej wymienione działać.</p></b>
+    <p style="font-size:10px;">kontakt: Lukasz.Grzegorz.Brzezinski@gmail.com</p>
+    <p ><a href="http://lukaszbrzezinski.pl/" class="btn btn-primary btn-lg">Dowiedz się więcej &raquo;</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">Wady:</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li>niestosowanie się do zasad SOLID</li>
+                    <li>miejscami chaotyczny kod</li>
+                    <li>baaaardzo długie metody</li>
+                    <li>brak podziału na mniejsze klasy</li>
+                    <li>testowanie tego programu było by bardzo uciążliwe</li>
+                </ul>
+            </div>
+        </div>
+
+
+
+        <h2>Działa:</h2>
+            <ul>
+                <li>(usuwanie nie jest trwałe, można to w każdej chwili odwrócić - wyjątek godziny korepetycji)</li>
+                <li>dodawanie/usuwanie działów zadań</li>
+                <li>Dodawanie/usuwanie/edycja zadań</li>
+                <li>Dodawanie/usuwanie/podgląd zadań domowych</li>
+                <li>funkcja "przeczytane zadanie domowe"(po stronie ucznia i admina)</li>
+                <li>powiadomienie o nowym zadaniu domowym(dla ucznia)</li>
+                <li>powiadomienie gdy uczeń otworzy zadanie domowe(dla admina, imię nazwisko - które zadanie i godzina)</li>
+                <li>czat(ze zdjęciami) z uczniem w każdym zadaniu domowym osobno</li>
+                <li>Weryfikacja uczni po rejestracji</li>
+                <li>Możliwość włączenia/wyłączenia widoczności ucznia do przypisywania zadań/godzin korepetycji</li>
+                <li>Szybkie usuwanie uprawnień uczna</li>
+                <li>Grafik/kalendarz (niżej opcje jego)</li>
+                <li>Widok dnia/tygodnia/miesiąca</li>
+                <li>dodawanie/usuwanie/edycja godziny korepetycji</li>
+                <li>funkcja drag and drop (możliwość złapania i przesunięcia godziny bez konieczności wyklikania edycji)</li>
+                <li>Funkcja resize (możliwość płynnej zmiany czasu trwania korepetycji bez konieczności edycji)</li>
+
+            </ul>
+        <p><a class="btn btn-default" href="#">Klik &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Do zrobienia:</h2>
+        <ul>
+            <li>Historia usunięć</li>
+            <li>Statystyki</li>
+            <li>zatwierdzenie rozwiązania zadania domowego przez admina i oznaczenie zadania jako zakończone</li>
+            <li>powiadomienie o nowej wiadomości(dla admina i ucznia)</li>
+            <li>otwieranie zdjęcia po kliknięcu w nowej zakładce</li>
+            <li>poprawa czcionki w czacie do zadania domowego</li>
+            <li>tabela kolorów dla uczni(dla lepszej czytelności w grafiku) - opcjonalne (do zaakceptowania przez klienta)</li>
+        </ul>
+        <p><a class="btn btn-default" href="#">Klik &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Bugi</h2>
+        <ul>
+            <li>Identyfikacja roli w kontrolerach - it's not a bug! It's a feature (do zrobienai na samym końcu)</li>
+            <li>zmiana widoczności(na false) przy odebraniu uprawnień ucznia</li>
+            <li>sprawdzić notyfikacje i sortowanie</li>
+        </ul>
+        <p><a class="btn btn-default" href="#">Klik &raquo;</a></p>
     </div>
 </div>

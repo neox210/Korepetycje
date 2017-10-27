@@ -297,6 +297,29 @@ emoji {
 /* Set width on the form input elements since they're 100% wide by default */
 
 
+.navbar-inverse .navbar-brand {
+    text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px, rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px, rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px, rgb(0, 0, 0) 0.96017px -0.279415px 0px;
+    font-size: 35px;
+    color:white;
+    
+}
+
+.navbar-inverse .navbar-brand :hover{
+    color:#ccc;
+}
+
+.container .jumbotron {
+    background-image: url("../Images/blackboard.jpeg");
+    background-size: cover;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+    border: 5px solid #d4b100;
+    margin-top: 50px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #D4D4D4;
+}
+
 tr:nth-child(2n) {
     background: #eee;
 }
@@ -466,4 +489,13 @@ td > .icon-visible-true{
 td > .icon-visible-false {
     color: #ff0000;
     font-size: 20px;
+}
+
+/*fuckup with adding private lessons stop callendar FIX*/
+
+@media (min-width: 992px) {
+    .form-horizontal .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        float:none;
+    }
+
 }
